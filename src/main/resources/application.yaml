@@ -1,0 +1,35 @@
+server:
+  port: 8081
+  error:
+    include-exception: true
+    include-binding-errors: always
+    path: /api/v1/error
+    include-message: always
+    include-stacktrace: always
+    whitelabel:
+      enabled: true
+
+
+spring:
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+      use-new-id-generator-mappings: true
+    show-sql: true
+    database: mysql
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQL8Dialect
+  datasource:
+    url: jdbc:mysql://localhost:3306/wellness_db
+    username: root
+    password:
+
+#  mail:
+#    protocol: smtp
+#    username: Wellness
+#    password: password
+#    port: 5308
+#    host:
