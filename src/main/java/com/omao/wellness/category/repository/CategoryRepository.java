@@ -1,12 +1,10 @@
-package com.omao.wellness.product.repository;
+package com.omao.wellness.category.repository;
 
-import com.omao.wellness.product.model.Category;
+import com.omao.wellness.category.model.Category;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
-import java.util.Optional;
 
 @Repository
 public interface CategoryRepository extends JpaRepository<Category, Long> {

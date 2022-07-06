@@ -1,10 +1,9 @@
-package com.omao.wellness.product.model;
+package com.omao.wellness.category.model;
 
 import lombok.*;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import java.util.Objects;
 
 @Setter

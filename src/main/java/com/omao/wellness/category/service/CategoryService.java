@@ -1,9 +1,8 @@
-package com.omao.wellness.product.service;
+package com.omao.wellness.category.service;
 
-import com.omao.wellness.product.model.Category;
-import com.omao.wellness.product.repository.CategoryRepository;
+import com.omao.wellness.category.model.Category;
+import com.omao.wellness.category.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -13,6 +12,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class CategoryService {
     private final CategoryRepository categoryRepository;
 
@@ -31,8 +31,9 @@ public class CategoryService {
     public Optional<Category> findCategoryById(Long id) {
         return categoryRepository.findById(id);
     }
-    public Optional<Page<Category>> findCategoryContainingSearchWord(String word,int pageNumber){
-        return Optional.of(categoryRepository.findByDescriptionContainsIgnoreCase(word,PageRequest.of(pageNumber,20)));
+
+    public Optional<Page<Category>> findCategoryContainingSearchWord(String word, int pageNumber) {
+        return Optional.of(categoryRepository.findByDescriptionContainsIgnoreCase(word, PageRequest.of(pageNumber, 20)));
     }
 
     @Transactional
@@ -47,14 +48,15 @@ public class CategoryService {
         return cat;
     }
 
-    public void deleteCategory(Category category){
+    public void deleteCategory(Category category) {
         categoryRepository.delete(category);
     }
-    public void deleteAllCategories(){
+
+    public void deleteAllCategories() {
         categoryRepository.deleteAll();
     }
 
-    public void deleteAllCategoriesById(Iterable<Category> categories){
+    public void deleteAllCategoriesById(Iterable<Category> categories) {
         categoryRepository.deleteAll(categories);
     }
 }

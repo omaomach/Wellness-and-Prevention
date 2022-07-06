@@ -1,7 +1,7 @@
-package com.omao.wellness.product.controller;
+package com.omao.wellness.category.controller;
 
-import com.omao.wellness.product.model.Category;
-import com.omao.wellness.product.service.CategoryService;
+import com.omao.wellness.category.model.Category;
+import com.omao.wellness.category.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -35,12 +35,12 @@ public class CategoryController {
 
     @GetMapping(value = "/name/{name}/{page_number}", produces = "application/json")
     public ResponseEntity<Optional<Page<Category>>> findCatByName(@PathVariable String name, @PathVariable String page_number) {
-        return ResponseEntity.status(OK).body(categoryService.listCategoryByName(name, Integer.parseInt(page_number)));
+        return ResponseEntity.status(OK).body(categoryService.listCategoryByName(name, Integer.parseInt(page_number)-1));
     }
 
     @GetMapping(value = "/search/{term}/{page_number}", produces = "application/json")
     public ResponseEntity<Optional<Page<Category>>> searchCategory(@PathVariable String term, @PathVariable String page_number) {
-        return ResponseEntity.status(OK).body(categoryService.findCategoryContainingSearchWord(term, Integer.parseInt(page_number)));
+        return ResponseEntity.status(OK).body(categoryService.findCategoryContainingSearchWord(term, Integer.parseInt(page_number)-1));
     }
 
     @PutMapping(value = "/update", produces = "application/json", consumes = "application/json")

@@ -1,4 +1,4 @@
-package com.omao.wellness.product.config;
+package com.omao.wellness.category.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
