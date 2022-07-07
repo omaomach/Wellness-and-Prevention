@@ -1,4 +1,4 @@
-package com.omao.wellness.config;
+package com.omao.wellness.category.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,13 +25,13 @@ public class SwaggerConfig {
     }
 
     private ApiInfo getApiInfo() {
-        Contact contact = new Contact("Wellness and Prevention", "http://wellnessenprevention.com", "contact.wellnessenprevention@gmail.com");
+        Contact contact = new Contact("Wellness and Prevention", "https://wellnessenprevention.com", "contact.wellnessenprevention@gmail.com");
         return new ApiInfoBuilder()
                 .title("Wellness and Prevention API")
                 .description("Documentation Wellness and Prevention api")
                 .version("1.0.0")
                 .license("Apache 2.0")
-                .licenseUrl("http://www.apache.org/licenses/LICENSE-2.0")
+                .licenseUrl("https://www.apache.org/licenses/LICENSE-2.0")
                 .contact(contact)
                 .build();
     }
