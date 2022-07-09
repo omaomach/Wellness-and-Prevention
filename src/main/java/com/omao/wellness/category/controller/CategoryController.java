@@ -1,6 +1,7 @@
 package com.omao.wellness.category.controller;
 
 import com.omao.wellness.category.model.Category;
+import com.omao.wellness.category.model.CategoryPost;
 import com.omao.wellness.category.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -19,8 +20,8 @@ public class CategoryController {
     private final CategoryService categoryService;
 
     @PostMapping(value = "/create", produces = "application/json", consumes = "application/json")
-    public ResponseEntity<Category> createCategory(@RequestBody Category category) {
-        return ResponseEntity.status(CREATED).body(categoryService.createCategory(category));
+    public ResponseEntity<Category> createCategory(@RequestBody CategoryPost category) {
+        return ResponseEntity.status(CREATED).body(categoryService.createCategory(new Category(null,category.getCategoryName(),category.getDescription(),category.getImageUrl())));
     }
 
     @GetMapping(value = "/{page_number}", produces = "application/json")

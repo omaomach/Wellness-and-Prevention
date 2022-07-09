@@ -1,12 +1,15 @@
 package com.omao.wellness.product.controller;
 
 import com.omao.wellness.product.model.Product;
+import com.omao.wellness.product.model.ProductPost;
 import com.omao.wellness.product.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import static org.springframework.http.HttpStatus.*;
 
@@ -17,13 +20,33 @@ public class ProductController {
     private final ProductService productService;
 
     @PostMapping(value = "/add", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<Product> saveProduct(@RequestBody Product product) {
-        return ResponseEntity.status(CREATED).body(productService.insertProduct(product));
+    public ResponseEntity<Product> saveProduct(@RequestBody ProductPost product) {
+        product.getIngredients().forEach(productService::insertIngredient);
+        return ResponseEntity.status(CREATED).body(productService
+                .insertProduct(
+                        new Product(
+                                null,
+                                product.getProductName(),
+                                product.getProductDescription(),
+                                product.getSuggestedUse(),
+                                product.getCategory(),
+                                product.getIngredients())
+                )
+        );
     }
 
     @PostMapping(value = "/add/many", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<?> saveManyProducts(@RequestBody Collection<Product> products) throws InterruptedException {
-        return ResponseEntity.status(CREATED).body(productService.insertManyProducts(products));
+    public ResponseEntity<?> saveManyProducts(@RequestBody Collection<ProductPost> products) {
+        List<Product> prods = new ArrayList<>();
+        products.forEach(productPost -> prods.add(new Product(null,
+                        productPost.getProductName(),
+                        productPost.getProductDescription(),
+                        productPost.getSuggestedUse(),
+                        productPost.getCategory(),
+                        productPost.getIngredients()
+                )
+        ));
+        return ResponseEntity.status(CREATED).body(prods);
     }
 
     @GetMapping(value = "/{page_number}", produces = "application/json")
@@ -46,6 +69,10 @@ public class ProductController {
         return ResponseEntity.status(OK).body(productService.getProductWithSuggestedUse(use, Integer.parseInt(pageNumber) - 1));
     }
 
+    @PutMapping(value = "/update", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<?> updateProduct(@RequestBody Product product) {
+        return ResponseEntity.status(ACCEPTED).body(productService.updateProduct(product));
+    }
 
     @DeleteMapping(value = "/delete", consumes = "application/json")
     public ResponseEntity<?> deleteProduct(@RequestBody Product product) {

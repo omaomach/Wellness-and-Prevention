@@ -1,5 +1,7 @@
 package com.omao.wellness.product.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.omao.wellness.category.model.Category;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -8,6 +10,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.Collection;
 
+import static javax.persistence.FetchType.EAGER;
 import static javax.persistence.GenerationType.IDENTITY;
 
 @Getter
@@ -26,8 +29,12 @@ public class Product {
     private String productDescription;
     @Column(name = "suggested_use", nullable = false)
     private String suggestedUse;
-    @ElementCollection
+    @JoinColumn(name = "category", nullable = false)
+    @OneToOne
+    private Category category;
     @CollectionTable(name = "ingredients", joinColumns = @JoinColumn(name = "id"))
-    @Column(name = "ingredients", nullable = false)
+    @JsonProperty(value = "ingredients")
+    @JoinColumn(name = "ingredients", nullable = false)
+    @ManyToOne(targetEntity = Ingredient.class, fetch = EAGER)
     private Collection<Ingredient> ingredients;
 }
