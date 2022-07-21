@@ -2,10 +2,7 @@ package com.omao.wellness.product.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.omao.wellness.category.model.Category;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -17,6 +14,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Setter
 @RequiredArgsConstructor
 @AllArgsConstructor
+@Builder
 @Entity(name = "product")
 public class Product {
     @Id

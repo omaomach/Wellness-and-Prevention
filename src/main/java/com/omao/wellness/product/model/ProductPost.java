@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -19,18 +18,18 @@ public class ProductPost {
     private String productDescription;
     private String suggestedUse;
     private Category category;
-    private Collection<Ingredient> ingredients;
+    private Collection<Ingredient> ingredientsPost;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ProductPost that = (ProductPost) o;
-        return Objects.equals(productName, that.productName) && Objects.equals(productDescription, that.productDescription) && Objects.equals(suggestedUse, that.suggestedUse) && Objects.equals(category, that.category) && Objects.equals(ingredients, that.ingredients);
+        return Objects.equals(productName, that.productName) && Objects.equals(productDescription, that.productDescription) && Objects.equals(suggestedUse, that.suggestedUse) && Objects.equals(category, that.category) && Objects.equals(ingredientsPost, that.ingredientsPost);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(productName, productDescription, suggestedUse, category, ingredients);
+        return Objects.hash(productName, productDescription, suggestedUse, category, ingredientsPost);
     }
 }

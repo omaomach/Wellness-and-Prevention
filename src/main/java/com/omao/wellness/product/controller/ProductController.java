@@ -1,5 +1,7 @@
 package com.omao.wellness.product.controller;
 
+import com.omao.wellness.product.model.Ingredient;
+import com.omao.wellness.product.model.IngredientPost;
 import com.omao.wellness.product.model.Product;
 import com.omao.wellness.product.model.ProductPost;
 import com.omao.wellness.product.service.ProductService;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 import static org.springframework.http.HttpStatus.*;
 
@@ -21,7 +24,6 @@ public class ProductController {
 
     @PostMapping(value = "/add", consumes = "application/json", produces = "application/json")
     public ResponseEntity<Product> saveProduct(@RequestBody ProductPost product) {
-        product.getIngredients().forEach(productService::insertIngredient);
         return ResponseEntity.status(CREATED).body(productService
                 .insertProduct(
                         new Product(
@@ -30,24 +32,40 @@ public class ProductController {
                                 product.getProductDescription(),
                                 product.getSuggestedUse(),
                                 product.getCategory(),
-                                product.getIngredients())
+                                product.getIngredientsPost())
                 )
         );
     }
 
-    @PostMapping(value = "/add/many", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<?> saveManyProducts(@RequestBody Collection<ProductPost> products) {
-        List<Product> prods = new ArrayList<>();
-        products.forEach(productPost -> prods.add(new Product(null,
-                        productPost.getProductName(),
-                        productPost.getProductDescription(),
-                        productPost.getSuggestedUse(),
-                        productPost.getCategory(),
-                        productPost.getIngredients()
-                )
-        ));
-        return ResponseEntity.status(CREATED).body(prods);
-    }
+//    @PostMapping(value = "/add/many", consumes = "application/json", produces = "application/json")
+//    public ResponseEntity<?> saveManyProducts(@RequestBody Collection<ProductPost> products) {
+//        List<Product> prods = new ArrayList<>();
+//        List<Ingredient> ingreds = new ArrayList<>();
+//        for (ProductPost post:products){
+//            for (IngredientPost ingredientPost:post.getIngredientsPost()){
+//                ingreds.add(Ingredient.builder().ingredientName(ingredientPost.getIngredientName()).ingredientQuantity(ingredientPost.getIngredientQuantity()).build());
+//            }
+//            productService.saveAllIngredients(ingreds);
+//            prods.add(
+//                    Product.builder()
+//                            .productName(post.getProductName())
+//                            .category(post.getCategory())
+//                            .suggestedUse(post.getSuggestedUse())
+//                            .ingredients(post.getIngredientsPost())
+//                            .productDescription(post.getProductDescription())
+//                            .build()
+//            )
+//        }
+//        products.forEach(productPost -> prods.add(new Product(null,
+//                        productPost.getProductName(),
+//                        productPost.getProductDescription(),
+//                        productPost.getSuggestedUse(),
+//                        productPost.getCategory(),
+//                        productPost.getIngredientsPost()
+//                )
+//        ));
+//        return ResponseEntity.status(CREATED).body(prods);
+//    }
 
     @GetMapping(value = "/{page_number}", produces = "application/json")
     public ResponseEntity<?> getAll(@PathVariable(value = "page_number") String pageNumber) {

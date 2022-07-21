@@ -33,6 +33,16 @@ public class ProductServiceEngine implements ProductService {
     }
 
     @Override
+    public Optional<List<Product>> saveAllProducts(List<Product> products) {
+        return Optional.of(productRepository.saveAll(products));
+    }
+
+    @Override
+    public Optional<List<Ingredient>> saveAllIngredients(List<Ingredient> ingredients) {
+        return Optional.of(ingredientRepository.saveAll(ingredients));
+    }
+
+    @Override
     public List<Ingredient> insertManyIngredients(Collection<Ingredient> ingredients) {
         return ingredientRepository.saveAll(ingredients);
     }

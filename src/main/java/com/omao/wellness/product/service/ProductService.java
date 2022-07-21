@@ -12,6 +12,8 @@ import java.util.Optional;
 public interface ProductService {
     Product insertProduct(Product product);
     Ingredient insertIngredient(Ingredient ingredient);
+    Optional<List<Product>> saveAllProducts(List<Product> products);
+    Optional<List<Ingredient>> saveAllIngredients(List<Ingredient> ingredients);
     List<Ingredient> insertManyIngredients(Collection<Ingredient> ingredients);
 
     Optional<?> insertManyProducts(Collection<Product> products) throws InterruptedException;
