@@ -18,7 +18,7 @@ import java.util.concurrent.CountDownLatch;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class ProductServiceEngine implements ProductService {
+public class ProductServiceImplementation implements ProductService {
     private final ProductRepository productRepository;
     private final IngredientRepository ingredientRepository;
 

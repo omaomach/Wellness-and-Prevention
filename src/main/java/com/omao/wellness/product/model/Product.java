@@ -6,6 +6,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.Date;
 
 import static javax.persistence.FetchType.EAGER;
 import static javax.persistence.GenerationType.IDENTITY;
@@ -30,6 +31,10 @@ public class Product {
     @JoinColumn(name = "category", nullable = false)
     @OneToOne
     private Category category;
+    @Column(name = "dosage",nullable = false)
+    private String dosage;
+    @Column(name = "expiration_date",nullable = false)
+    private Date expirationDate;
     @CollectionTable(name = "ingredients", joinColumns = @JoinColumn(name = "id"))
     @JsonProperty(value = "ingredients")
     @JoinColumn(name = "ingredients", nullable = false)

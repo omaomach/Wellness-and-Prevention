@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.Objects;
 
 @Getter
@@ -18,6 +19,8 @@ public class ProductPost {
     private String productDescription;
     private String suggestedUse;
     private Category category;
+    private String dosage;
+    private Date expirationDate;
     private Collection<Ingredient> ingredientsPost;
 
     @Override
