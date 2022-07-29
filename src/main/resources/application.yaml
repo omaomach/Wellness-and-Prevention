@@ -11,6 +11,12 @@ server:
 
 
 spring:
+  servlet:
+    multipart:
+      enabled: true
+      file-size-threshold: 20KB
+      max-file-size: 200MB
+      max-request-size: 200MB
   jpa:
     generate-ddl: true
     hibernate:
@@ -33,3 +39,10 @@ spring:
 #    password: password
 #    port: 5308
 #    host:
+
+#  servlet:
+#    multipart:
+#      enable: true
+#      file-size-threshold: 2KB
+#      max-file-size: 20MB
+#      max-request-size: 215MB

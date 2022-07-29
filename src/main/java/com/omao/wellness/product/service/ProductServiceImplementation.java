@@ -2,6 +2,7 @@ package com.omao.wellness.product.service;
 
 import com.omao.wellness.product.model.Ingredient;
 import com.omao.wellness.product.model.Product;
+import com.omao.wellness.product.repository.IngredientRepository;
 import com.omao.wellness.product.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -10,19 +11,42 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CountDownLatch;
 
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class ProductServiceEngine implements ProductService {
+public class ProductServiceImplementation implements ProductService {
     private final ProductRepository productRepository;
+    private final IngredientRepository ingredientRepository;
 
     @Override
     public Product insertProduct(Product product) {
         return productRepository.save(product);
     }
+
+    @Override
+    public Ingredient insertIngredient(Ingredient ingredient) {
+        return ingredientRepository.save(ingredient);
+    }
+
+    @Override
+    public Optional<List<Product>> saveAllProducts(List<Product> products) {
+        return Optional.of(productRepository.saveAll(products));
+    }
+
+    @Override
+    public Optional<List<Ingredient>> saveAllIngredients(List<Ingredient> ingredients) {
+        return Optional.of(ingredientRepository.saveAll(ingredients));
+    }
+
+    @Override
+    public List<Ingredient> insertManyIngredients(Collection<Ingredient> ingredients) {
+        return ingredientRepository.saveAll(ingredients);
+    }
+
 
     @Override
     public Optional<?> insertManyProducts(Collection<Product> products) throws InterruptedException {
